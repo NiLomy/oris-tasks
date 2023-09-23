@@ -16,7 +16,7 @@ import java.io.IOException;
 @WebServlet(name = "loginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
 
-    private static final String USERS_STORAGE = "C:\\Users\\loban\\IdeaProjects\\HttpClient\\src\\main\\java\\ru\\kpfu\\itis\\lobanov\\task3\\users.txt";
+    private static final String USERS_STORAGE = "C:\\Users\\loban\\IdeaProjects\\oris-tasks\\src\\main\\java\\ru\\kpfu\\itis\\lobanov\\homeworks\\task3\\users.csv";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

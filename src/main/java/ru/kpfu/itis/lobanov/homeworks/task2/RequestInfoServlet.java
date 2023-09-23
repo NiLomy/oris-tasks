@@ -11,8 +11,8 @@ import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.stream.Collectors;
 
-@WebServlet(name = "helloServlet", urlPatterns = "/hello")
-public class HelloServlet extends HttpServlet {
+@WebServlet(name = "requestInfoServlet", urlPatterns = "/request")
+public class RequestInfoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();

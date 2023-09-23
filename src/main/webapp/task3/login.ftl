@@ -13,16 +13,28 @@
 <#macro content2>
     <div style="font-size:110%; text-align: center">
         <form action="login" method="post">
-            <b>
-                Login:
-            </b>
-            <input type="text" name="login"/>
-            <br>
-            <b>
-                Password:
-            </b>
-            <input type="password" name="password"/>
-            <br>
+            <table align="center">
+                <tr>
+                    <td>
+                        <b>
+                            Login:
+                        </b>
+                    </td>
+                    <td>
+                        <input type="text" name="login"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>
+                            Password:
+                        </b>
+                    </td>
+                    <td>
+                        <input type="password" name="password"/>
+                    </td>
+                </tr>
+            </table>
             <br>
             <input type="submit" value="login"/>
         </form>
