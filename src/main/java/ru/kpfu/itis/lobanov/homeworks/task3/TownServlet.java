@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -32,11 +33,14 @@ public class TownServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String townName = req.getParameter("town");
-
-        Map<String, String> weatherAttributes = getWeatherAttributes(townName);
-        req.setAttribute("townName", townName);
-        weatherAttributes.forEach(req::setAttribute);
-        req.getRequestDispatcher("task3/weather.ftl").forward(req, resp);
+        try {
+            Map<String, String> weatherAttributes = getWeatherAttributes(townName);
+            req.setAttribute("townName", townName);
+            weatherAttributes.forEach(req::setAttribute);
+            req.getRequestDispatcher("task3/weather.ftl").forward(req, resp);
+        } catch (FileNotFoundException e) {
+            req.getRequestDispatcher("task3/townNotFound.ftl").forward(req, resp);
+        }
     }
 
     public static Map<String, String> getWeatherAttributes(String townName) throws IOException {
