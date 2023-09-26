@@ -20,25 +20,21 @@
             ${townName}
         </#if>
         <br>
-        <b>
-            Temperature:
-        </b>
-        <#if temperature?has_content>
-            ${temperature}
-        </#if>
-        <br>
-        <b>
-            Humidity:
-        </b>
-        <#if humidity?has_content>
-            ${humidity}
-        </#if>
-        <br>
-        <b>
-            Precipitation:
-        </b>
-        <#if precipitation?has_content>
-            ${precipitation}
+        <#if weatherAttributes?has_content>
+            <b>
+                Temperature:
+            </b>
+            ${weatherAttributes.temperature}
+            <br>
+            <b>
+                Humidity:
+            </b>
+            ${weatherAttributes.humidity}
+            <br>
+            <b>
+                Precipitation:
+            </b>
+            ${weatherAttributes.precipitation}
         </#if>
     </div>
 </#macro>

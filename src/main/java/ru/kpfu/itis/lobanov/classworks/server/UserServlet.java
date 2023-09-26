@@ -1,5 +1,7 @@
 package ru.kpfu.itis.lobanov.classworks.server;
 
+import ru.kpfu.itis.lobanov.dto.UserDto;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,18 +13,24 @@ import java.util.List;
 
 @WebServlet(name = "userServlet", urlPatterns = "/users")
 public class UserServlet extends HttpServlet {
+
+    private static final List<UserDto> USERS = initUsers();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<String> list = new ArrayList<>();
-        list.add("Ivan");
-        list.add("Stepan");
-        list.add("Boris");
-        req.setAttribute("users", list);
+        req.setAttribute("users", USERS);
         req.getRequestDispatcher("users.ftl").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPost(req, resp);
+    }
+
+    private static List<UserDto> initUsers() {
+        List<UserDto> list = new ArrayList<>();
+        list.add(new UserDto("Ivan", "Pupkin"));
+        list.add(new UserDto("Katya", "Ivanova"));
+        return list;
     }
 }

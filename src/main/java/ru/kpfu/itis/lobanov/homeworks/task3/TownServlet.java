@@ -3,6 +3,9 @@ package ru.kpfu.itis.lobanov.homeworks.task3;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ru.kpfu.itis.lobanov.dto.WeatherDto;
 import ru.kpfu.itis.lobanov.homeworks.task1.HttpClientImpl;
 
 import javax.servlet.ServletException;
@@ -14,36 +17,43 @@ import javax.servlet.http.HttpSession;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
 @WebServlet(name = "townServlet", urlPatterns = "/town")
 public class TownServlet extends HttpServlet {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession httpSession = req.getSession();
-        Object isAuthorized = httpSession.getAttribute("isAuthorized");
-        if (isAuthorized != null && (boolean) isAuthorized) {
-            req.getRequestDispatcher("task3/town.ftl").forward(req, resp);
-        } else {
-            resp.sendRedirect("/login");
-        }
+        req.getRequestDispatcher("task3/town.ftl").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String townName = req.getParameter("town");
+        HttpSession session = req.getSession();
         try {
-            Map<String, String> weatherAttributes = getWeatherAttributes(townName);
+            long startTime = System.nanoTime();
             req.setAttribute("townName", townName);
-            weatherAttributes.forEach(req::setAttribute);
+            req.setAttribute("weatherAttributes", getWeatherAttributes(townName));
             req.getRequestDispatcher("task3/weather.ftl").forward(req, resp);
+            long endTime = System.nanoTime();
+            LOGGER.info(
+                    "User with login {} logged in and searched for town {} in {} and result was given in {} millis",
+                    session.getAttribute("userName"),
+                    townName,
+                    LocalDateTime.now(),
+                    (int) ((endTime - startTime) / 1e6)
+            );
         } catch (FileNotFoundException e) {
             req.getRequestDispatcher("task3/townNotFound.ftl").forward(req, resp);
         }
     }
 
-    public static Map<String, String> getWeatherAttributes(String townName) throws IOException {
+    public static WeatherDto getWeatherAttributes(String townName) throws IOException {
         HttpClientImpl httpClient = new HttpClientImpl();
         String getResponse = httpClient.get(
                 "https://api.openweathermap.org/data/2.5/weather?q=" + townName + "&appid=143c9d8999112b2f489a1e3a44de6ade",
@@ -55,10 +65,10 @@ public class TownServlet extends HttpServlet {
         JsonElement humidity = currentWeather.get("humidity");
         JsonElement precipitation = weatherJson.get("weather").getAsJsonArray().get(0).getAsJsonObject().get("description");
 
-        Map<String, String> weatherAttributes = new HashMap<>();
-        weatherAttributes.put("temperature", new DecimalFormat("#0.00").format(Double.parseDouble(temperature.getAsString()) - 273) + " °C");
-        weatherAttributes.put("humidity", humidity.getAsString() + "%");
-        weatherAttributes.put("precipitation", precipitation.getAsString());
-        return weatherAttributes;
+        return new WeatherDto(
+                new DecimalFormat("#0.00").format(Double.parseDouble(temperature.getAsString()) - 273) + " °C",
+                humidity.getAsString() + "%",
+                precipitation.getAsString()
+        );
     }
 }

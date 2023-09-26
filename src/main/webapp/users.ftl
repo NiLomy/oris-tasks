@@ -8,7 +8,7 @@
     <br>
     <#if users?has_content>
         <#list users as u>
-            ${u}
+            ${u.firstName} ${u.lastName}
             <br>
         </#list>
     </#if>
