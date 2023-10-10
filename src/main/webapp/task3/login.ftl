@@ -1,6 +1,7 @@
 <html lang="en">
 <#include "base.ftl">
 
+<#macro content0></#macro>
 <#macro title>Login</#macro>
 
 <#macro content1>

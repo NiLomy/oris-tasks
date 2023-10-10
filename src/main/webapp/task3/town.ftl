@@ -3,6 +3,21 @@
 
 <#macro title>Town</#macro>
 
+<#macro content0>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+        $(document).on(
+            "click", "#ajax-button", function () {
+                let town = $("#ajax-input").val();
+
+                $.get("/weather?town=" + town, function (response) {
+                    $("#ajax-response").text(response);
+                })
+            }
+        )
+    </script>
+</#macro>
+
 <#macro content1>
     <div style="font-size:150%; text-align:center">
         Enter the town whose whether you want to know
@@ -10,16 +25,19 @@
 </#macro>
 
 <#macro content2>
-    <form action="town" method="post">
-        <div style="font-size:110%; text-align: center">
-            <b>
-                Town:
-            </b>
-            <input type="text" name="town"/>
+    <div align="center">
+        <form>
+            <b>Town:</b>
             <br>
             <br>
-            <input type="submit" value="continue"/>
+            <input type="text" id="ajax-input">
+            <br>
+            <br>
+            <input type="button" id="ajax-button" value="Get message">
+        </form>
+        <br>
+        <div id="ajax-response">
         </div>
-    </form>
+    </div>
 </#macro>
 </html>

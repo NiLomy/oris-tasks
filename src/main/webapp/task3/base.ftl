@@ -1,6 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <@content0></@content0>
     <title><@title></@title></title>
 </head>
 

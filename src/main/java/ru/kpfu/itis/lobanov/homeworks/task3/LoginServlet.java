@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
                     LOGGER.info("User with login {} logged in", login);
                     HttpSession httpSession = req.getSession();
                     httpSession.setAttribute("userName", login);
-                    resp.sendRedirect("/town");
+                    resp.sendRedirect(getServletContext().getContextPath() + "/town");
                 }
             }
         }

@@ -1,4 +1,4 @@
-package ru.kpfu.itis.lobanov.classworks.server;
+package ru.kpfu.itis.lobanov.classworks.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
