@@ -35,6 +35,29 @@ public class ServiceDao implements Dao<Service> {
         }
     }
 
+    public Service get(String name) {
+        try {
+            String sql = "SELECT * from services where name = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet != null) {
+                if (resultSet.next()) {
+                    return new Service(
+                            resultSet.getInt("id"),
+                            resultSet.getString("name"),
+                            resultSet.getInt("duration")
+                    );
+                }
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException("Can't get service from DB.", e);
+        }
+    }
+
     @Override
     public List<Service> getAll() {
         try {

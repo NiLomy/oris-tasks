@@ -2,6 +2,7 @@ package ru.kpfu.itis.lobanov.control1.model.dao.impl;
 
 import ru.kpfu.itis.lobanov.control1.model.entity.Appointment;
 import ru.kpfu.itis.lobanov.control1.model.entity.Master;
+import ru.kpfu.itis.lobanov.control1.model.entity.Service;
 import ru.kpfu.itis.lobanov.dao.Dao;
 import ru.kpfu.itis.lobanov.util.DatabaseConnectionUtil;
 
@@ -62,6 +63,33 @@ public class AppointmentDao implements Dao<Appointment> {
             return appointments;
         } catch (SQLException e) {
             throw new RuntimeException("Can't get appointment list from DB.", e);
+        }
+    }
+
+    public List<Appointment> getAllFromMaster(int masterId) {
+        try {
+            String sql = "SELECT * from appointments where master_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, masterId);
+            List<Appointment> appointments = new ArrayList<>();
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet != null) {
+                while (resultSet.next()) {
+                    appointments.add(
+                            new Appointment(
+                                    resultSet.getInt("id"),
+                                    resultSet.getInt("master_id"),
+                                    resultSet.getInt("service_id"),
+                                    resultSet.getTimestamp("time"),
+                                    resultSet.getString("phone")
+                            )
+                    );
+                }
+            }
+            return appointments;
+        } catch (SQLException e) {
+            throw new RuntimeException("Can't get service list from DB.", e);
         }
     }
 
