@@ -106,16 +106,22 @@ public class GameApplication extends Application {
         scoreLabel.setText(String.format("Scores: %d", scores));
         int x = random.nextInt(GameSettings.MAP_WIDTH - GameSettings.FOOD_BORDERS);
         int y = random.nextInt(GameSettings.MAP_HEIGHT - GameSettings.FOOD_BORDERS);
-        if (random.nextInt() <= GameSettings.GOOD_FOOD_PROBABILITY) {
-            goodFood.setX(x);
-            goodFood.setY(y);
-        } else {
+        goodFood.setX(x);
+        goodFood.setY(y);
+
+        if (random.nextInt() > GameSettings.GOOD_FOOD_PROBABILITY) {
             badFood = new BadFood(x, y);
             pane.getChildren().addAll(badFood.getView());
             TimerTask task = new TimerTask() {
                 @Override
                 public void run() {
-                    Platform.runLater(() -> pane.getChildren().remove(badFood.getView()));
+                    Platform.runLater(() -> {
+                        pane.getChildren().remove(badFood.getView());
+                        int x = random.nextInt(GameSettings.MAP_WIDTH - GameSettings.FOOD_BORDERS);
+                        int y = random.nextInt(GameSettings.MAP_HEIGHT - GameSettings.FOOD_BORDERS);
+                        goodFood.setX(x);
+                        goodFood.setY(y);
+                    });
                 }
             };
             Timer timer = new Timer();
