@@ -4,10 +4,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import javafx.scene.control.TextArea;
+import ru.kpfu.itis.lobanov.control2.httpclient.HttpClientImpl;
 import ru.kpfu.itis.lobanov.control2.utils.BotResponsesStringsProvider;
 import ru.kpfu.itis.lobanov.control2.utils.CommandInfoProvider;
 import ru.kpfu.itis.lobanov.control2.utils.InputParser;
-import ru.kpfu.itis.lobanov.servlets.homeworks.task1.HttpClientImpl;
 
 import java.io.IOException;
 import java.util.HashMap;

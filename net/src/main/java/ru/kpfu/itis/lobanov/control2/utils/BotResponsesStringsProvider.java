@@ -2,6 +2,7 @@ package ru.kpfu.itis.lobanov.control2.utils;
 
 public class BotResponsesStringsProvider {
     public static final String APP_NAME = "Info Bot";
+    public static final String GAME_NAME = "SNAKE";
     public static final String HELLO_MESSAGE = "You successfully started the chat\n";
     public static final String GOODBYE_MESSAGE = "Goodbye!\n";
     public static final String USER_PRINT = "you: %s\n";
@@ -23,6 +24,7 @@ public class BotResponsesStringsProvider {
     public static final String WEATHER_HUMIDITY_KEY = "humidity";
     public static final String WEATHER_WEATHER_KEY = "weather";
     public static final String WEATHER_DESCRIPTION_KEY = "description";
+    public static final String GAME_EXCEPTION_MESSAGE = "Oooops, something went wrong launching game application =(";
 
 
     private BotResponsesStringsProvider() {

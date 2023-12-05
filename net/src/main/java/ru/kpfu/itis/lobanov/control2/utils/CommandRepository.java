@@ -11,7 +11,8 @@ public class CommandRepository {
                 new InfoCommand(chat),
                 new WeatherCommand(chat),
                 new ChatCommand(chat),
-                new ExchangeRateCommand(chat)
+                new ExchangeRateCommand(chat),
+                new SnakeCommand(chat)
         };
     }
 }

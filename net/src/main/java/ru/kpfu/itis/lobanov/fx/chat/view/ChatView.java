@@ -26,7 +26,7 @@ public class ChatView extends BaseView {
                 // send message
                 getChatApplication().getChatClient().sendMessage(username + ": " + message);
 
-                conversation.appendText("you: " + message);
+//                conversation.appendText("you: " + message);
 
                 input.clear();
                 event.consume();

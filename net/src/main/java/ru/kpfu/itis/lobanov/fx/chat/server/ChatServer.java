@@ -35,7 +35,7 @@ public class ChatServer {
     public void sendMessage(String message, Client client) {
         for (Client c: clients) {
             if (c.equals(client)) {
-                continue;
+//                continue;
             }
 
             try {

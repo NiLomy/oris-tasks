@@ -10,7 +10,7 @@ import ru.kpfu.itis.lobanov.control2.utils.BotResponsesStringsProvider;
 import java.io.PrintWriter;
 
 public class BotApplication extends Application {
-    private static Stage primaryStage;
+    public static Stage primaryStage;
     private static final String initXML = "/bot.fxml";
 
     @Override
